@@ -1,0 +1,344 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2457a6">
+  <title>Estuda+ | Seu espaço de estudos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-icon">✦</span> Estuda<span>+</span></a>
+  <div class="top-actions">
+    <span class="save-status" id="saveStatus">Salvo neste dispositivo</span>
+    <button class="btn btn-soft" id="focusBtn">Modo foco</button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="sidebar">
+    <p class="eyebrow">SEU ESPAÇO</p>
+    <h2>Minhas matérias</h2>
+    <nav id="subjectNav" class="subject-nav" aria-label="Matérias"></nav>
+    <form id="subjectForm" class="subject-add">
+      <input id="newSubject" maxlength="32" placeholder="Nova matéria..." aria-label="Nome da nova matéria">
+      <button class="btn btn-primary" aria-label="Adicionar matéria">+</button>
+    </form>
+    <div class="side-note">✧ Seus materiais ficam separados por matéria.</div>
+  </aside>
+
+  <section class="main-content">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">BEM-VINDA AO SEU CANTINHO DE ESTUDOS</p>
+        <h1 id="subjectTitle">Matemática</h1>
+        <p>Organize seus conteúdos, revise e aprenda no seu ritmo.</p>
+      </div>
+      <div class="welcome-art" aria-hidden="true">✦<span>✧</span></div>
+    </section>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="materiais">📚 Materiais</button>
+      <button class="tab" data-tab="resumos">✍️ Resumos</button>
+      <button class="tab" data-tab="mapas">🧠 Mapas mentais</button>
+      <button class="tab" data-tab="cartoes">🃏 Flashcards</button>
+      <button class="tab" data-tab="ferramentas">⏱️ Ferramentas</button>
+    </div>
+
+    <section class="tab-panel active" id="panel-materiais">
+      <article class="card">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">BIBLIOTECA DA MATÉRIA</p>
+            <h2>Meus textos</h2>
+          </div>
+          <span class="bubble">01</span>
+        </div>
+
+        <form id="textForm" class="form-grid">
+          <label class="field">
+            Título do conteúdo
+            <input id="textTitle" required maxlength="80" placeholder="Ex.: Equações do 1º grau">
+          </label>
+          <label class="field">
+            Texto de estudo
+            <textarea id="textBody" rows="5" required placeholder="Cole ou escreva seu conteúdo aqui..."></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit">＋ Salvar texto</button>
+        </form>
+        <div id="textList" class="item-grid"></div>
+      </article>
+
+      <article class="card">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">LEITURA E DESTAQUES</p>
+            <h2>Marca-texto digital</h2>
+          </div>
+          <span class="bubble green">02</span>
+        </div>
+        <p class="muted">Selecione uma parte do texto no editor e escolha uma cor para destacar.</p>
+        <label class="field">
+          Texto para leitura e marcação
+          <textarea id="highlightEditor" rows="7" placeholder="Cole aqui um trecho do seu material..."></textarea>
+        </label>
+        <div class="toolbar">
+          <button class="btn mark-yellow" data-color="#fff09a">Amarelo</button>
+          <button class="btn mark-green" data-color="#b9f0d0">Verde</button>
+          <button class="btn mark-pink" data-color="#ffd0e2">Rosa</button>
+          <button class="btn btn-soft" id="clearHighlight">Limpar marcações</button>
+        </div>
+        <div id="highlightPreview" class="highlight-preview" aria-live="polite">Seu texto destacado aparecerá aqui.</div>
+        <button class="btn btn-primary" id="saveHighlight">Salvar texto destacado</button>
+      </article>
+    </section>
+
+    <section class="tab-panel" id="panel-resumos">
+      <article class="card">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">IDEIAS PRINCIPAIS</p>
+            <h2>Resumo em tópicos</h2>
+          </div>
+          <span class="bubble">03</span>
+        </div>
+        <p class="muted">Cole o conteúdo e gere uma primeira organização por frases. Você pode editar, acrescentar ou apagar cada tópico.</p>
+        <label class="field">
+          Conteúdo para resumir
+          <textarea id="summarySource" rows="5" placeholder="Cole seu texto aqui..."></textarea>
+        </label>
+        <div class="toolbar">
+          <button class="btn btn-primary" id="generateTopics">✦ Organizar em tópicos</button>
+          <button class="btn btn-soft" id="clearTopics">Apagar todos os tópicos</button>
+        </div>
+        <div id="topicList" class="topic-list"></div>
+        <form id="topicForm" class="inline-form">
+          <input id="newTopic" placeholder="Adicionar um tópico..." required>
+          <button class="btn btn-primary">Adicionar</button>
+        </form>
+      </article>
+    </section>
+
+    <section class="tab-panel" id="panel-mapas">
+      <article class="card">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">CONECTE AS IDEIAS</p>
+            <h2>Construtor de mapa mental</h2>
+          </div>
+          <span class="bubble purple">04</span>
+        </div>
+        <div class="form-grid two">
+          <label class="field">
+            Tema central
+            <input id="mapTopic" placeholder="Ex.: Sistema solar">
+          </label>
+          <label class="field">
+            Nova ideia
+            <input id="mapIdea" placeholder="Ex.: Planetas">
+          </label>
+        </div>
+        <div class="toolbar">
+          <button class="btn btn-primary" id="addIdea">＋ Adicionar ideia</button>
+          <button class="btn btn-soft" id="clearIdeas">Limpar mapa</button>
+        </div>
+        <div id="mindmap" class="mindmap">
+          <div class="central-node" id="centralNode">Seu tema central</div>
+          <svg id="mapLines" class="map-lines" aria-hidden="true"></svg>
+          <div id="ideaList" class="idea-list"></div>
+        </div>
+        <p class="muted">Arraste os cartões para posicionar. Clique em “Conectar” em dois cartões para criar uma ligação entre eles. Você também pode conectar uma ideia ao tema central.</p>
+      </article>
+    </section>
+
+    <section class="tab-panel" id="panel-cartoes">
+      <article class="card">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">REVISÃO ATIVA</p>
+            <h2>Meus flashcards</h2>
+          </div>
+          <span class="bubble pink">05</span>
+        </div>
+        <form id="flashForm" class="form-grid two">
+          <label class="field">
+            Frente / pergunta
+            <input id="flashFront" required placeholder="Ex.: O que é uma célula?">
+          </label>
+          <label class="field">
+            Verso / resposta
+            <input id="flashBack" required placeholder="Ex.: Unidade básica dos seres vivos.">
+          </label>
+          <button class="btn btn-primary" type="submit" id="flashSubmit">＋ Criar flashcard</button>
+          <button class="btn btn-soft hidden" type="button" id="cancelFlashEdit">Cancelar edição</button>
+        </form>
+        <div id="flashList" class="flash-grid"></div>
+      </article>
+    </section>
+
+    <section class="tab-panel" id="panel-ferramentas">
+      <div class="tool-grid">
+        <article class="card">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">TEMPO DE CONCENTRAÇÃO</p>
+              <h2>Temporizador</h2>
+            </div>
+            <span class="bubble green">06</span>
+          </div>
+          <div class="timer-display" id="timerDisplay">25:00</div>
+          <div class="timer-inputs">
+            <label class="field">Minutos<input type="number" id="timerMinutes" min="1" max="180" value="25"></label>
+            <label class="field">Segundos<input type="number" id="timerSeconds" min="0" max="59" value="0"></label>
+          </div>
+          <div class="toolbar">
+            <button class="btn btn-primary" id="timerStart">▶ Iniciar</button>
+            <button class="btn btn-soft" id="timerPause">Pausar</button>
+            <button class="btn btn-soft" id="timerReset">Reiniciar</button>
+          </div>
+          <p class="muted" id="timerStatus" aria-live="polite">Escolha o tempo e comece.</p>
+        </article>
+
+        <article class="card accessibility-card">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">LEITURA ACESSÍVEL</p>
+              <h2>Personalizar leitura</h2>
+            </div>
+            <span class="bubble pink">08</span>
+          </div>
+
+          <label class="field">
+            Texto para ouvir
+            <textarea id="speakText" rows="4" placeholder="Digite ou cole aqui o texto que deseja escutar..."></textarea>
+          </label>
+          <div class="toolbar">
+            <button class="btn btn-primary" id="speakStart">▶ Ouvir texto</button>
+            <button class="btn btn-soft" id="speakPause">Pausar</button>
+            <button class="btn btn-soft" id="speakResume">Continuar</button>
+            <button class="btn btn-soft" id="speakStop">Parar</button>
+          </div>
+          <label class="field">
+            Velocidade da voz <output id="speedValue">0,9x</output>
+            <input id="speakSpeed" type="range" min="0.6" max="1.4" step="0.1" value="0.9">
+          </label>
+
+          <hr class="soft-rule">
+
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">CONFORTO VISUAL</p>
+              <h2>Ajustes de acessibilidade</h2>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <label class="field">
+              Fonte
+              <select id="readerFont">
+                <option value="lexend">Lexend</option>
+                <option value="arial">Arial</option>
+                <option value="verdana">Verdana</option>
+                <option value="opendyslexic">OpenDyslexic (se instalada)</option>
+              </select>
+            </label>
+            <label class="field">
+              Tamanho da letra <output id="fontSizeValue">17px</output>
+              <input id="readerSize" type="range" min="14" max="26" value="17">
+            </label>
+            <label class="field">
+              Espaçamento entre letras <output id="letterSpaceValue">0,05em</output>
+              <input id="letterSpace" type="range" min="0" max="0.16" step="0.01" value="0.05">
+            </label>
+            <label class="field">
+              Espaçamento entre linhas <output id="lineHeightValue">1,8</output>
+              <input id="lineHeight" type="range" min="1.4" max="2.4" step="0.1" value="1.8">
+            </label>
+            <label class="field">
+              Cor do fundo
+              <select id="readerBackground">
+                <option value="#fffdf5">Creme suave</option>
+                <option value="#ffffff">Branco</option>
+                <option value="#eef6f2">Verde suave</option>
+                <option value="#f0f3fb">Azul suave</option>
+                <option value="#fff0f5">Rosa suave</option>
+                <option value="#202b3a">Escuro</option>
+              </select>
+            </label>
+            <label class="field">
+              Cor do texto
+              <select id="readerColor">
+                <option value="#24364b">Escuro</option>
+                <option value="#172554">Azul-marinho</option>
+                <option value="#333333">Cinza</option>
+                <option value="#ffffff">Branco</option>
+              </select>
+            </label>
+          </div>
+          <div class="toolbar">
+            <button class="btn btn-soft" id="readingGuide">Ativar régua de leitura</button>
+            <button class="btn btn-soft" id="resetAccessibility">Restaurar padrão</button>
+          </div>
+          <p class="muted">As preferências ficam salvas neste navegador. A fonte OpenDyslexic depende de estar instalada no dispositivo.</p>
+        </article>
+
+        <article class="card">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">CÁLCULOS RÁPIDOS</p>
+              <h2>Calculadora</h2>
+            </div>
+            <span class="bubble purple">07</span>
+          </div>
+          <div class="calculator">
+            <input id="calcDisplay" class="calc-display" value="0" readonly aria-label="Visor da calculadora">
+            <div class="calc-keys" id="calcKeys">
+              <button data-key="C" class="calc-clear">C</button>
+              <button data-key="(">(</button>
+              <button data-key=")">)</button>
+              <button data-key="/" class="operator">÷</button>
+              <button data-key="7">7</button>
+              <button data-key="8">8</button>
+              <button data-key="9">9</button>
+              <button data-key="*" class="operator">×</button>
+              <button data-key="4">4</button>
+              <button data-key="5">5</button>
+              <button data-key="6">6</button>
+              <button data-key="-" class="operator">−</button>
+              <button data-key="1">1</button>
+              <button data-key="2">2</button>
+              <button data-key="3">3</button>
+              <button data-key="+" class="operator">+</button>
+              <button data-key="0" class="wide">0</button>
+              <button data-key=".">.</button>
+              <button data-key="=" class="equals">=</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      Estuda+ · Um passo de cada vez.
+      <span>Seus dados ficam salvos neste navegador.</span>
+    </footer>
+  </section>
+</main>
+
+<div id="timerAlert" class="timer-alert" role="alertdialog" aria-modal="true" aria-labelledby="timerAlertTitle" hidden>
+  <div class="timer-alert-box">
+    <div class="alert-icon">⏰</div>
+    <h2 id="timerAlertTitle">Seu tempo terminou!</h2>
+    <p>Você concluiu seu período de concentração. Faça uma pausa e respire um pouco.</p>
+    <button class="btn btn-primary" id="closeTimerAlert">Entendi</button>
+  </div>
+</div>
+
+<div id="readingRuler" class="reading-ruler" hidden></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
